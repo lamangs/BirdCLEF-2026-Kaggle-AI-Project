@@ -21,7 +21,12 @@ print("Label:", row["primary_label"])
 y, sr = librosa.load(audio_path, sr=32000)
 
 # Create mel spectrogram
-mel = librosa.feature.melspectrogram(y=y, sr=sr)
+mel = librosa.feature.melspectrogram(
+    y=y,
+    sr=sr,
+    n_mels=128,
+    n_fft=1024
+)
 mel_db = librosa.power_to_db(mel, ref=np.max)
 
 # Plot
