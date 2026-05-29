@@ -102,4 +102,4 @@ Possible future improvements include:
 
 ## Author
 
-Leman Gasimova
+Laman Gasimova
