@@ -4,7 +4,7 @@ import librosa
 import torch
 import torch.nn as nn
 
-df = pd.read_csv("train.csv").head(500)
+df = pd.read_csv("train.csv").head(1000)
 labels = sorted(df["primary_label"].unique())
 
 model = nn.Sequential(
@@ -29,7 +29,12 @@ audio_path = "train_audio/1161364/iNat1216197.ogg"
 
 y, sr = librosa.load(audio_path, sr=32000)
 
-mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
+mel = librosa.feature.melspectrogram(
+    y=y,
+    sr=sr,
+    n_mels=128,
+    n_fft=1024
+)
 mel_db = librosa.power_to_db(mel, ref=np.max)
 
 mel_db = mel_db[:, :512]
