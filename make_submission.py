@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 
 # LOAD LABELS
-df = pd.read_csv("train.csv").head(500)
+df = pd.read_csv("train.csv").head(1000)
 labels = sorted(df["primary_label"].unique())
 
 # MODEL
@@ -48,10 +48,11 @@ for i, row in submission.iterrows():
     y, sr = librosa.load(audio_path, sr=32000)
 
     mel = librosa.feature.melspectrogram(
-        y=y,
-        sr=sr,
-        n_mels=128
-    )
+    y=y,
+    sr=sr,
+    n_mels=128,
+    n_fft=1024
+)
 
     mel_db = librosa.power_to_db(mel, ref=np.max)
 
