@@ -7,7 +7,7 @@ from torch.utils.data import Dataset, DataLoader, random_split
 
 class BirdDataset(Dataset):
     def __init__(self, csv_path, audio_dir):
-        self.df = pd.read_csv(csv_path).head(200)
+        self.df = pd.read_csv(csv_path).head(1000)
         self.audio_dir = audio_dir
         self.labels = sorted(self.df["primary_label"].unique())
         self.label_to_idx = {label: i for i, label in enumerate(self.labels)}
@@ -20,7 +20,7 @@ class BirdDataset(Dataset):
         audio_path = self.audio_dir + "/" + row["filename"]
 
         y, sr = librosa.load(audio_path, sr=32000)
-        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
+        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128, n_fft= 1024)
         mel_db = librosa.power_to_db(mel, ref=np.max)
 
         mel_db = mel_db[:, :512]
