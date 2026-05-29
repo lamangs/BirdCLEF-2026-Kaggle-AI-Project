@@ -8,7 +8,7 @@ from torch.utils.data import Dataset, DataLoader, random_split
 # Dataset
 class BirdDataset(Dataset):
     def __init__(self, csv_path, audio_dir):
-        self.df = pd.read_csv(csv_path).head(500)
+        self.df = pd.read_csv(csv_path).head(1000)
         self.audio_dir = audio_dir
 
         self.labels = sorted(self.df["primary_label"].unique())
@@ -108,7 +108,6 @@ optimizer = torch.optim.Adam(
     lr=0.001
 )
 
-# TRAIN
 # TRAIN
 for epoch in range(5):
 
