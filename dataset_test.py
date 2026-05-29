@@ -20,7 +20,12 @@ class BirdDataset(Dataset):
 
         y, sr = librosa.load(audio_path, sr=32000)
 
-        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
+        mel = librosa.feature.melspectrogram(
+             y=y,
+             sr=sr,
+             n_mels=128,
+             n_fft=1024
+              )
         mel_db = librosa.power_to_db(mel, ref=np.max)
 
         x = torch.tensor(mel_db, dtype=torch.float32).unsqueeze(0)
